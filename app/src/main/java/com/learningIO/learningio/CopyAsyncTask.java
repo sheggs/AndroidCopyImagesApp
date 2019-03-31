@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.nio.channels.FileChannel;
 
-public class CopyAsyncTask extends AsyncTask<Void, Void, Void> {
+public class CopyAsyncTask extends AsyncTask<File[], Void, Void> {
 
     private WeakReference<MainActivity> activityWeakReference;
     private File[] sourceFiles;
@@ -18,7 +18,7 @@ public class CopyAsyncTask extends AsyncTask<Void, Void, Void> {
     public CopyAsyncTask(MainActivity activity,File[] sourceFiles, File path){
         this.activityWeakReference = new WeakReference<MainActivity>(activity);
         this.path = path;
-        this.sourceFiles = sourceFiles;
+        this.sourceFiles = null;
     }
 
     @Override
@@ -27,9 +27,10 @@ public class CopyAsyncTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Void doInBackground(File[]... files) {
         long time = System.nanoTime();
         System.out.println("DEBUGING: " + time);
+        this.sourceFiles = files[0];
         for(int i = 0; i<this.sourceFiles.length;i++){
             try {
                 copyFilesOver(new FileInputStream(sourceFiles[i]), path.getPath() , sourceFiles[i].getName());
