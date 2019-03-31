@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
         // Checking if the target path exists.
         if(targetPath.exists()) {
             for (int i = 0; i < targetSourceFiles.length; i++) {
+                // Adding path file names into text view.
                 directoryTV_target.setText(directoryTV_target.getText() + "\n" + targetSourceFiles[i].getName());
             }
         }else{
